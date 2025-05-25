@@ -1,0 +1,16 @@
+-- Add up migration script here
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS bots (
+    id UUID PRIMARY KEY NOT NULL DEFAULT (uuid_generate_v4()),
+    caption VARCHAR(255) NOT NULL UNIQUE,
+    token VARCHAR(50) NOT NULL UNIQUE,
+    active BOOLEAN DEFAULT FALSE,
+    state VARCHAR(100) NOT NULL,
+    last_started TIMESTAMP WITH TIME ZONE,
+    last_stop TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP
+        WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP
+        WITH TIME ZONE DEFAULT NOW()
+);
