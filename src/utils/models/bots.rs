@@ -32,7 +32,7 @@ impl BotModel {
             id: None, 
             caption: caption.to_string(), 
             token: token.to_string(), 
-            active: Some(false), 
+            active: Some(false),
             state: "init".to_string(), 
             last_started: None, 
             last_stop: None, 
@@ -117,8 +117,8 @@ impl BotModel {
 
     pub async fn update(&self, State(state): &State<Arc<AppState>>) -> Result<BotModel, Json<serde_json::Value>> {
         let query_result = sqlx::query_as!(BotModel, "SELECT * FROM bots WHERE id = $1", self.id.unwrap())
-        .fetch_one(&state.db)
-        .await;
+            .fetch_one(&state.db)
+            .await;
 
         if query_result.is_err() {
             let error_response = serde_json::json!({
