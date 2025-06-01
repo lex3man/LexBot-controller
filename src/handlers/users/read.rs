@@ -1,10 +1,7 @@
 use std::sync::Arc;
 
 use axum::{
-    extract::{Path, State},
-    http::StatusCode,
-    response::IntoResponse,
-    Json,
+    extract::{Path, State}, http::{StatusCode}, response::IntoResponse, Json
 };
 
 use crate::{state::AppState, utils::models::users::UserModel};
@@ -36,7 +33,6 @@ pub async fn get_users(
 ) -> Result<impl IntoResponse, Json<serde_json::Value>> {
 
     let users:Vec<UserModel> = UserModel::find_all(&State(data)).await?;
-
     let json_response = serde_json::json!({
         "status": "success",
         "results": users.len(),

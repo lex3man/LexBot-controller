@@ -73,21 +73,21 @@ impl AuthTokenModel {
         }
     }
 
-    pub async fn find_all(State(state): &State<Arc<AppState>>) -> Result<Vec<AuthTokenModel>, Json<serde_json::Value>> {
-        let query_result = sqlx::query_as!(AuthTokenModel, "SELECT * FROM tokens ORDER by id")
-            .fetch_all(&state.db)
-            .await;
+    // pub async fn find_all(State(state): &State<Arc<AppState>>) -> Result<Vec<AuthTokenModel>, Json<serde_json::Value>> {
+    //     let query_result = sqlx::query_as!(AuthTokenModel, "SELECT * FROM tokens ORDER by id")
+    //         .fetch_all(&state.db)
+    //         .await;
 
-        if query_result.is_err() {
-            let error_response = serde_json::json!({
-                "status": "fail",
-                "message": "Something bad happened while fetching all bots items",
-            });
-            return Err(Json(error_response));
-        }
-        let users = query_result.unwrap();
-        Ok(users)
-    }
+    //     if query_result.is_err() {
+    //         let error_response = serde_json::json!({
+    //             "status": "fail",
+    //             "message": "Something bad happened while fetching all bots items",
+    //         });
+    //         return Err(Json(error_response));
+    //     }
+    //     let users = query_result.unwrap();
+    //     Ok(users)
+    // }
 
     pub async fn find_by_value(value: String, State(state): &State<Arc<AppState>>) -> Result<AuthTokenModel, Json<serde_json::Value>> {
         let query_result = sqlx::query_as!(AuthTokenModel, "SELECT * FROM tokens WHERE value = $1", value)

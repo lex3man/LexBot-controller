@@ -1,10 +1,7 @@
 use std::sync::Arc;
 
 use axum::{
-    extract::State,
-    http::StatusCode,
-    response::IntoResponse,
-    Json,
+    extract::State, http::{StatusCode}, response::IntoResponse, Json
 };
 
 use crate::{state::AppState, utils::models::{schemas::users::CreateUserSchema, users::UserModel}};

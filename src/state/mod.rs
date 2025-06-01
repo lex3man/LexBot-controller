@@ -9,6 +9,7 @@ pub struct SystemState {
     pub bots: Vec<Bot>,
 }
 
+#[derive(Clone)]
 pub struct AppState {
     pub db: Pool<Postgres>,
 }

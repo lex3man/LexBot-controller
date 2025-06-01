@@ -8,8 +8,7 @@ mod routers;
 use std::sync::Arc;
 
 use axum::{
-    routing::get,
-    Router,
+    routing::get, Router
 };
 use config::Config;
 use routers::{get_auth_routes, get_bots_routes, get_users_routes};
@@ -23,8 +22,8 @@ async fn main() {
     let pool = get_connector(&database_url).await;
     let app_state = Arc::new(AppState { db: pool.clone() });
 
-    let bot_routes = get_bots_routes();
-    let user_routes = get_users_routes();
+    let bot_routes = get_bots_routes(&app_state);
+    let user_routes = get_users_routes(&app_state);
     let auth_routes = get_auth_routes();
 
     let app = Router::new()

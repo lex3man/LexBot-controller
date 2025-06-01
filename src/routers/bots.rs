@@ -4,9 +4,9 @@ use axum::{
     routing::{get, patch, post}, Router
 };
 
-use crate::{handlers, state::AppState};
+use crate::{handlers, middleware::AuthLayer, state::AppState};
 
-pub fn get_bots_routes() -> Router<Arc<AppState>> {
+pub fn get_bots_routes(state: &Arc<AppState>) -> Router<Arc<AppState>> {
     Router::new()
         .route("/", get(handlers::bots::get_bots))
         .route("/stop/{id}", patch(handlers::bots::stop_bot))
@@ -17,4 +17,5 @@ pub fn get_bots_routes() -> Router<Arc<AppState>> {
             .delete(handlers::bots::delete_bot),
         )
         .route("/new", post(handlers::bots::new_bot))
+        .layer(AuthLayer{ state: state.clone() })
 }
